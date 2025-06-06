@@ -25,9 +25,6 @@ public class PlayerCharacterTest {
         int expectedConstitution = 1;
         int expectedDexterity = 1;
 
-        //ACT: Aktion. Ausführen des Codes
-        testPlayer = new PlayerCharacter(expectedName);
-
         //ASSERT. Überprüfung. Vergleich Ergebnis und Erwartungen.
         assertEquals(expectedName, testPlayer.getName());
         assertEquals(expectedLevel, testPlayer.getLevel());
