@@ -1,12 +1,13 @@
 package rpg.model;
 
 public class PlayerCharacter {
-    private String name;
+    private final String name;
     private int level;
     private int healthPoints;
     private int strength;
     private int constitution;
     private int dexterity;
+    private int skillPoints;
 
     public PlayerCharacter(String name) {
         this.name = name;
@@ -15,6 +16,7 @@ public class PlayerCharacter {
         this.strength = 1;
         this.constitution = 1;
         this.dexterity = 1;
+        this.skillPoints = 10;
     }
 
     public String getName() {
@@ -39,5 +41,9 @@ public class PlayerCharacter {
 
     public int getDexterity() {
         return this.dexterity;
+    }
+
+    public int getSkillPoints() {
+        return this.skillPoints;
     }
 }
