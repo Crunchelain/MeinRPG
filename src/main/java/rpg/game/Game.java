@@ -14,8 +14,8 @@ public class Game {
         Location market = new Location("Marktplatz",
                 "Der Marktplatz von Leet beherbert verschiedene Stände mit allerlei Waren für den Alltagsgebrauch.");
 
-        tavern.addExits("TAVERNENTÜRE", tavern);
-        market.addExits("TAVERNENTÜRE", market);
+        tavern.addExits("TAVERNENTÜRE", market);
+        market.addExits("TAVERNENTÜRE", tavern);
 
         Location currentLocation = tavern;
 
@@ -30,6 +30,20 @@ public class Game {
         System.out.println("Aktuell befindest du dich hier: " + currentLocation.getName());
         System.out.println(currentLocation.getDescription());
 
+        // ---> Spielschleife
+        while(true) {
+            //Promptzeichen für erwartete Eingabe
+            System.out.print("> ");
+            String command = input.nextLine();
 
+            //Befehl verarbeiten
+            //Beenden des Spiels
+            if(command.equalsIgnoreCase("quit")) {
+                System.out.println("Das Spiel wird verlassen. Auf ein ander Mal.");
+                break;
+            }
+
+            System.out.println("Unbekannter Befehl.");
+        }
     }
 }
