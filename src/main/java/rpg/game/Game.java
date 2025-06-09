@@ -2,6 +2,7 @@ package rpg.game;
 import rpg.model.Location;
 import rpg.model.PlayerCharacter;
 
+import java.util.Locale;
 import java.util.Scanner;
 
 public class Game {
@@ -27,6 +28,7 @@ public class Game {
 
         //*** Gamestart ***
         System.out.println("Willkommen in deinem Abenteuer " + player.getName());
+        System.out.println("Mit dem Wort Hilfe, kannst du dir die jeweiligen Kommandos anzeigen lassen.");
         System.out.println("Aktuell befindest du dich hier: " + currentLocation.getName());
         System.out.println(currentLocation.getDescription());
 
@@ -36,32 +38,41 @@ public class Game {
             System.out.print("> ");
             String command = input.nextLine();
 
-            String[] commandParts = command.split(" ");
+            String[] commandParts = command.trim().split(" ");
+
+            if(commandParts.length == 0 || commandParts[0].isEmpty()) {
+                //Leere Eingaben ignorieren und einfach nochmals Anfragen
+                continue;
+            }
+
+            String verb = commandParts[0].toLowerCase();
 
             //Befehl verarbeiten
             //Beenden des Spiels
-            if(command.equalsIgnoreCase("quit")) {
+            if(verb.equalsIgnoreCase("quit")) {
                 System.out.println("Das Spiel wird verlassen. Auf ein ander Mal.");
                 break;
-            }
+            } else if (verb.equalsIgnoreCase("gehe")) {
+                if(commandParts.length == 2) {
+                    String direction = commandParts[1].toUpperCase();
+                    Location nextLocation = currentLocation.getExit(direction);
 
-            if(commandParts.length > 0 && commandParts[0].equalsIgnoreCase("gehe")) {
-                String direction = commandParts[1].toUpperCase();
+                    if (nextLocation != null) {
+                        currentLocation = nextLocation;
 
-                Location nextLocation = currentLocation.getExit(direction);
-
-                if (nextLocation != null) {
-                    currentLocation = nextLocation;
-
-                    System.out.println("----------");
-                    System.out.println("Aktuell befindest du dich hier: " + currentLocation.getName());
-                    System.out.println(currentLocation.getDescription());
-                } else {
-                    System.out.println("Du kannst diese Ort nicht betreten: " + direction);
+                        System.out.println("----------");
+                        System.out.println("Aktuell befindest du dich hier: " + currentLocation.getName());
+                        System.out.println(currentLocation.getDescription());
+                    } else {
+                        System.out.println("Du kannst diese Ort nicht betreten: " + direction);
+                    }
                 }
-            }
 
-            System.out.println("Unbekannter Befehl.");
+            } else if (verb.equalsIgnoreCase("Umsehen")) {
+                //TODO: Umsehen implementieren.
+            } else {
+                System.out.println("Unbekannter Befehl. Du kannst dir die Befehle mit hilfe auflisten lassen.");
+            }
         }
     }
 }
